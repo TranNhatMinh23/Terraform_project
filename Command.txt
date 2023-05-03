@@ -1,0 +1,22 @@
+python -m venv env
+source env/Scripts/activate
+deactivate
+pip freeze
+pip install django
+py -m pip install Django
+django-admin startproject foodOnline_main . .
+django-admin startproject app .
+python manage.py runserver
+python manage.py migrate
+python manage.py makemigrations
+python manage.py createsuperuser
+python manage.py collectstatic
+pip install psycopg2
+py -m pip install python-decouple
+python manage.py startapp accounts .
+python manage.py startapp vendor .
+python -m pip install Pillow
+docker-compose build
+docker-compose run --rm app sh -c "django-admin startproject app ."
+pip freeze > requirements.txt
+python manage.py dumpdata > backup.json
