@@ -1,94 +1,95 @@
 {% load static %}
-<header class="section-header">
-    <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTop4">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                 <a href="#" class="nav-link">   English </a>
-                
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link"> USD </a>
-            </li>
-        </ul>
-        <ul class="navbar-nav">
-            <li><a href="#" class="nav-link"> <i class="fa fa-envelope"></i> Email </a></li>
-            <li><a href="#" class="nav-link"> <i class="fa fa-phone"></i> Call us </a></li>
-        </ul> <!-- list-inline //  -->
-      </div> <!-- navbar-collapse .// -->
-    </div> <!-- container //  -->
-    </nav>
-    
-    <section class="header-main border-bottom">
-        <div class="container">
-    <div class="row align-items-center">
-        <div class="col-lg-2 col-md-3 col-6">
-            <a href="{% url 'home' %}" class="brand-wrap">
-                <img class="logo" src="{% static './images/logo.png' %}">
-            </a> <!-- brand-wrap.// -->
-        </div>
-        <div class="col-lg col-sm col-md col-6 flex-grow-0">
-            <div class="category-wrap dropdown d-inline-block float-right">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> 
-                    <i class="fa fa-bars"></i> All category 
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'store' %}">All Product </a>
 
-                    {% for category in links %}
-                    <a class="dropdown-item" href="{{category.get_url}}">{{ category.category_name }} </a>
-                    {% endfor %}
-                </div>
-            </div>  <!-- category-wrap.// -->
-        </div> <!-- col.// -->
-        <a href="{% url 'store' %}" class="btn btn-outline-primary">Store</a>
-        <div class="col-lg  col-md-6 col-sm-12 col">
-            <form action="{% url 'search' %}" class="search" method="GET">
-                <div class="input-group w-100">
-                    <input type="text" class="form-control" style="width:60%;" placeholder="Search" name="keyword">
-                    
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="submit">
-                        <i class="fa fa-search"></i>
-                      </button>
+<!--Main Wrapper-->
+<div class="wrapper">
+    <!-- Header Start -->
+    <header id="header">
+        <div class="main-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div class="logo">
+                            <figure>
+                                <a href="{% url 'home' %}" class="light-logo">
+                                    <img src="{% static 'logo/foodOnlineLogo.png' %}" alt="FoodOnline" width="250">
+                                </a>
+                            </figure>
+                        </div>
+                        
+                        
+                        <div class="main-location ml-5">
+                            <ul>
+                                <li class="location-has-children choose-location">
+                                    <form action="#">
+                                        <input type="text" value="" name="location" id="location" placeholder="Your current location" autocomplete="off">
+                                        <span id="foodbakery_radius_location_open" class="foodbakery-radius-location" onclick="getLocation()"><i class="icon-target5"></i></span>
+                                    </form>
+                                    
+                                </li>
+                            </ul>
+                            </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="login-option">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'cart' %}">
+                                <i class="fa fa-shopping-cart text-danger" style="font-size: 20px;"></i>
+                                <span class="badge badge-warning" id="cart_counter" style="border-radius: 50px; position: relative; bottom:10px; left: -5px;">{{ cart_count }}</span>
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'marketplace' %}" class="btn btn-outline-danger text-uppercase font-weight-bold">Marketplace</a>
+                            {% if user.is_authenticated %}
+                            <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'myAccount' %}">My Account</a>
+                            <a class="cs-color cs-popup-joinus-btn login-popup text-danger" href="{% url 'logout' %}">Logout</a>
+                            {% else %}
+                            <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> / 
+                                <span><a href="{% url 'registerUser' %}" class="cs-color cs-popup-joinus-btn login-popup ml-0">Register</a></span><a class="get-start-btn" href="{% url 'registerVendor' %}">
+                                Register
+                                Restaurant </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </form> <!-- search-wrap .end// -->
-        </div> <!-- col.// -->
-        <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
-            <div class="d-flex justify-content-end mb-3 mb-lg-0">
-              {% if user.id is None %}
-              <div class="widget-header">
-                <small class="title text-muted">Welcome guest!</small>
-                <div>
-                  <a href="{% url 'login' %}">Sign in</a> <span class="dark-transp"> | </span>
-                  <a href="{% url 'register' %}"> Register</a>
-                </div>
-              </div>
-              {% else %}
-              <div class="widget-header">
-                <small class="title text-muted">Welcome {{user.first_name}}!</small>
-                <div>
-                  {% comment %} <a href="{% url 'dashboard' %}">Dashboard</a> <span class="dark-transp"> | </span> {% endcomment %}
-                  <a href="{% url 'logout' %}"> Logout</a>
-                </div>
-              </div>
-              {% endif %}
-              <a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
-                <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
-              </a>
-            </div> <!-- widgets-wrap.// -->
-          </div> <!-- col.// -->
-    </div> <!-- row.// -->
-        </div> <!-- container.// -->
-    </section> <!-- header-main .// -->
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <script>
+    var x = document.getElementById("location");
+    var current_location = sessionStorage.getItem("current_location")
+    if(current_location != ""){
+        x.value = current_location;
+    }
+    function getLocation() {
+        
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
     
-    
-    
-    
-    </header> <!-- section-header.// -->
+    function showPosition(position) {
+        {% comment %} var lat = position.coords.latitude
+        var lng = position.coords.longitude {% endcomment %}
+
+        var lat = '16.0678506';
+        var lng = '108.1551045';
+
+        
+        // hit AJAX request to googlemaps api endpoint and get the location data using those lat and lng
+        var GOOGLE_API_KEY = "{{ GOOGLE_API_KEY }}"
+        var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"+&key="+GOOGLE_API_KEY
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function(response){
+                var current_location = response.results[0].formatted_address
+                x.value = current_location
+                sessionStorage.setItem("current_location", current_location)
+                window.location = '?lat='+lat+'&lng='+lng
+            }
+        })
+        
+    }
+    </script>

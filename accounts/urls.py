@@ -1,23 +1,23 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 
 urlpatterns = [
-    path('register/', views.register, name='register'),
+    path('', views.myAccount),
+    path('registerUser/', views.registerUser, name='registerUser'),
+    path('registerVendor/', views.registerVendor, name='registerVendor'),
+
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('', views.dashboard, name='dashboard'),
+    path('myAccount/', views.myAccount, name='myAccount'),
+    path('custDashboard/', views.custDashboard, name='custDashboard'),
+    path('vendorDashboard/', views.vendorDashboard, name='vendorDashboard'),
 
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
-    path('forgotPassword/', views.forgotPassword, name='forgotPassword'),
-    path('resetpassword_validate/<uidb64>/<token>/', views.resetpassword_validate, name='resetpassword_validate'),
-    path('resetPassword/', views.resetPassword, name='resetPassword'),
 
-    # path('my_orders/', views.my_orders, name='my_orders'),
-    # path('edit_profile/', views.edit_profile, name='edit_profile'),
-    # path('change_password/', views.change_password, name='change_password'),
-    # path('order_detail/<int:order_id>/', views.order_detail, name='order_detail'),
-
-
+    path('forgot_password/', views.forgot_password, name='forgot_password'),
+    path('reset_password_validate/<uidb64>/<token>/', views.reset_password_validate, name='reset_password_validate'),
+    path('reset_password/', views.reset_password, name='reset_password'),
+    path('vendor/', include('vendor.urls')),
+    path('customer/', include('customers.urls')),
 ]

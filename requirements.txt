@@ -13,13 +13,13 @@ django-debug-toolbar==3.7.0
 django-phone-field==1.8.1
 filelock==3.8.0
 future==0.16.0
-GDAL @ file:///E:/Django/Django-FoodCrud/Django_Restaurant2/GDAL-3.4.3-cp310-cp310-win_amd64.whl
+
 idna==3.3
 jmespath==0.10.0
 pathspec==0.9.0
 Pillow==9.3.0
 platformdirs==2.5.4
-psycopg2==2.9.5
+psycopg2-binary
 pypiwin32==223
 python-dateutil==2.8.2
 python-decouple==3.6
@@ -27,6 +27,7 @@ pywin32==304
 PyYAML==5.4.1
 requests==2.26.0
 semantic-version==2.8.5
+simplejson==3.18.0
 six==1.14.0
 sqlparse==0.4.3
 termcolor==1.1.0
@@ -34,3 +35,4 @@ tzdata==2022.6
 urllib3==1.26.10
 virtualenv==20.16.7
 wcwidth==0.1.9
+gunicorn
