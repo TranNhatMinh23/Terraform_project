@@ -8,7 +8,7 @@
 - terraform apply --auto-approve (deploy terraform) 
 - terraform destroy --auto-approve (destroy infra)  
 
-# django_ci_cd
+# django setup deploy
 
 **2)** `initial-setup.sh` - This file is the first file to look at when setting up this project. It installs the required packages to make this project work such as Nginx, Jenkins, Python etc. Refer to the youtube video to see how and when it is used.
 
